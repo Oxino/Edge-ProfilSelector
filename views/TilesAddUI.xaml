@@ -1,0 +1,238 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ajouter une tuile" Width="460"
+        WindowStartupLocation="CenterOwner" SizeToContent="Height"
+        ResizeMode="NoResize" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent">
+    <Window.Resources>
+        <!-- ================= Brosses de thème (remplacées à l'exécution par ThemeManager) ================= -->
+        <!-- Valeurs par défaut = thème sombre -->
+        <LinearGradientBrush x:Key="BgBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#1A1A2E" Offset="0"/>
+            <GradientStop Color="#16213E" Offset="0.5"/>
+            <GradientStop Color="#0F3460" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#DDE6F6"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#6ABEF5"/>
+        <SolidColorBrush x:Key="AccentHoverBrush" Color="#8CCEF8"/>
+        <SolidColorBrush x:Key="AccentTextBrush" Color="#0F3460"/>
+        <SolidColorBrush x:Key="GlassFillBrush" Color="#FFFFFF" Opacity="0.08"/>
+        <SolidColorBrush x:Key="GlassFillHoverBrush" Color="#FFFFFF" Opacity="0.20"/>
+        <SolidColorBrush x:Key="GlassStrokeBrush" Color="#FFFFFF" Opacity="0.25"/>
+
+        <!-- Champs de saisie facon "verre" -->
+        <Style x:Key="GlassTextBox" TargetType="TextBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="SelectionBrush" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="10" BorderBrush="{DynamicResource GlassStrokeBrush}" BorderThickness="1"
+                                Background="{DynamicResource GlassFillBrush}">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Libelles -->
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Boutons secondaires (verre) -->
+        <Style x:Key="GlassButton" TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" CornerRadius="10" BorderBrush="{DynamicResource GlassStrokeBrush}" BorderThickness="1"
+                                Padding="10,8" Background="{DynamicResource GlassFillBrush}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="{DynamicResource GlassFillHoverBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Bouton principal (accent) -->
+        <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource GlassButton}">
+            <Setter Property="Foreground" Value="{DynamicResource AccentTextBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" CornerRadius="10" Background="{DynamicResource AccentBrush}" Padding="10,8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="{DynamicResource AccentHoverBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <!-- Conteneur exterieur : coins arrondis + degrade identique a la vue principale -->
+    <!-- La marge laisse respirer l'ombre portée tout autour de la popup. -->
+    <Border CornerRadius="16" BorderBrush="{DynamicResource GlassStrokeBrush}" BorderThickness="1"
+            Background="{DynamicResource BgBrush}" Margin="18">
+        <Border.Effect>
+            <DropShadowEffect Color="#000000" BlurRadius="28" ShadowDepth="0" Opacity="0.55"/>
+        </Border.Effect>
+
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- En-tete : barre de titre + zone de deplacement de la fenetre -->
+            <Grid Grid.Row="0" Name="TitleBar" Background="Transparent" Margin="0,0,0,20">
+                <TextBlock Name="DialogTitle" Text="Ajouter un profil" FontSize="22" FontWeight="Bold"
+                           Foreground="{DynamicResource TextPrimaryBrush}" VerticalAlignment="Center"/>
+                <Button Name="CloseButton" Width="32" Height="32" HorizontalAlignment="Right"
+                        Content="X" Style="{StaticResource GlassButton}"/>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,12">
+                <TextBlock Text="Titre" Style="{StaticResource FieldLabel}"/>
+                <TextBox Name="TitleBox" Width="300" Style="{StaticResource GlassTextBox}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,0,0,12">
+                <TextBlock Text="Image" Style="{StaticResource FieldLabel}"/>
+                <TextBox Name="ImageBox" Width="222" Style="{StaticResource GlassTextBox}"/>
+                <Button Name="BrowseImageButton" Width="72" Margin="6,0,0,0"
+                        Content="Parcourir" Style="{StaticResource GlassButton}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Margin="0,0,0,12">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Profil" Style="{StaticResource FieldLabel}"/>
+                    <TextBox Name="ProfilBox" Width="300" Style="{StaticResource GlassTextBox}"/>
+                </StackPanel>
+
+                <!-- Note explicative : comment trouver le nom du profil Edge -->
+                <Border Margin="80,8,0,0" CornerRadius="8" Padding="10,8"
+                        BorderBrush="{DynamicResource GlassStrokeBrush}" BorderThickness="1"
+                        Background="{DynamicResource GlassFillBrush}">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                            <TextBlock Text="&#x2139;" FontSize="14" FontWeight="Bold"
+                                       Foreground="{DynamicResource AccentBrush}" Margin="0,0,6,0"/>
+                            <TextBlock Text="Comment trouver le nom du profil ?" FontSize="12" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        </StackPanel>
+                        <TextBlock TextWrapping="Wrap" FontSize="11" LineHeight="16"
+                                   Foreground="{DynamicResource TextSecondaryBrush}">
+                            <Run Text="1. Ouvrez un nouvel onglet Edge sur :"/>
+                        </TextBlock>
+
+                        <!-- URL cliquable (copie dans le presse-papier) + animation "copié" -->
+                        <!-- Colonnes fixes : le lien a une largeur figée pour que le passage
+                             en gras ne déplace pas l'icône d'animation (position stable). -->
+                        <Grid Margin="12,2,0,4" HorizontalAlignment="Left">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Name="ProfileUrlLink" Grid.Column="0" Text="edge://profile-internals/"
+                                       FontSize="11" FontWeight="Normal" Cursor="Hand"
+                                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       ToolTip="Cliquer pour copier dans le presse-papier"
+                                       Foreground="{DynamicResource AccentBrush}"/>
+
+                            <!-- Zone d'animation : icône disquette + particules d'explosion -->
+                            <Canvas Name="CopyFxCanvas" Grid.Column="1" Width="40" Height="20"
+                                    VerticalAlignment="Center">
+                                    <!-- Icône "copié" (disquette), cachée par défaut -->
+                                    <TextBlock Name="CopyIcon" Text="&#x1F4BE;" FontSize="14"
+                                               Canvas.Left="4" Canvas.Top="1" Opacity="0"
+                                               Foreground="{DynamicResource AccentBrush}"
+                                               RenderTransformOrigin="0.5,0.5">
+                                        <TextBlock.RenderTransform>
+                                            <ScaleTransform x:Name="CopyIconScale" ScaleX="1" ScaleY="1"/>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                    <!-- Particules d'explosion (cachées par défaut) -->
+                                    <Ellipse Name="P1" Width="4" Height="4" Canvas.Left="11" Canvas.Top="8" Opacity="0" Fill="{DynamicResource AccentBrush}">
+                                        <Ellipse.RenderTransform><TranslateTransform x:Name="P1T"/></Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse Name="P2" Width="4" Height="4" Canvas.Left="11" Canvas.Top="8" Opacity="0" Fill="{DynamicResource AccentBrush}">
+                                        <Ellipse.RenderTransform><TranslateTransform x:Name="P2T"/></Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse Name="P3" Width="4" Height="4" Canvas.Left="11" Canvas.Top="8" Opacity="0" Fill="{DynamicResource AccentBrush}">
+                                        <Ellipse.RenderTransform><TranslateTransform x:Name="P3T"/></Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse Name="P4" Width="4" Height="4" Canvas.Left="11" Canvas.Top="8" Opacity="0" Fill="{DynamicResource AccentBrush}">
+                                        <Ellipse.RenderTransform><TranslateTransform x:Name="P4T"/></Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse Name="P5" Width="4" Height="4" Canvas.Left="11" Canvas.Top="8" Opacity="0" Fill="{DynamicResource AccentBrush}">
+                                        <Ellipse.RenderTransform><TranslateTransform x:Name="P5T"/></Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <Ellipse Name="P6" Width="4" Height="4" Canvas.Left="11" Canvas.Top="8" Opacity="0" Fill="{DynamicResource AccentBrush}">
+                                        <Ellipse.RenderTransform><TranslateTransform x:Name="P6T"/></Ellipse.RenderTransform>
+                                    </Ellipse>
+                                </Canvas>
+                        </Grid>
+
+                        <TextBlock TextWrapping="Wrap" FontSize="11" LineHeight="16"
+                                   Foreground="{DynamicResource TextSecondaryBrush}">
+                            <Run Text="2. Repérez le profil Edge souhaité."/>
+                            <LineBreak/>
+                            <Run Text="3. Notez la fin du champ "/>
+                            <Run Text="Profile Path" FontWeight="SemiBold"/>
+                            <Run Text=" : c'est le nom à saisir ci-dessus."/>
+                            <LineBreak/>
+                            <Run Text="Exemple : ...\User Data\" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                            <Run Text="Profile 7" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}"/>
+                            <Run Text="  &#x2192;  saisir " Foreground="{DynamicResource TextSecondaryBrush}"/>
+                            <Run Text="Profile 7" FontWeight="SemiBold"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Margin="0,0,0,12">
+                <TextBlock Text="Couleur" Style="{StaticResource FieldLabel}"/>
+                <TextBox Name="ColorBox" Width="200" Style="{StaticResource GlassTextBox}"/>
+                <Button Name="PickColorButton" Width="92" Margin="6,0,0,0"
+                        Content="Couleur..." Style="{StaticResource GlassButton}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom" Margin="0,16,0,0">
+                <Button Name="CancelAddButton" Width="90" Margin="0,0,8,0"
+                        Content="Annuler" Style="{StaticResource GlassButton}"/>
+                <Button Name="SaveAddButton" Width="90"
+                        Content="Ajouter" Style="{StaticResource AccentButton}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

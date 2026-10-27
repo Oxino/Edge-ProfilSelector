@@ -1,0 +1,63 @@
+﻿{
+    "Theme":  "Dark",
+    "WindowWidth":  940.80000000000007,
+    "WindowHeight":  912.80000000000007,
+    "Tiles":  [
+                  {
+                      "Titre":  "Biogaran",
+                      "Image":  "C:\\Users\\nrouzeaud001\\OneDrive - PwC\\Pictures\\Logo\\Clients\\Biogaran.png",
+                      "Profil":  "Profile 7",
+                      "Url":  "https://m365.cloud.microsoft/apps",
+                      "Couleur":  "#003598",
+                      "Order":  0
+                  },
+                  {
+                      "Titre":  "CNIEL",
+                      "Image":  "C:\\Users\\nrouzeaud001\\OneDrive - PwC\\Pictures\\Logo\\Clients\\Cniel.png",
+                      "Profil":  "Profile 4",
+                      "Url":  "",
+                      "Couleur":  "#181717",
+                      "Order":  1
+                  },
+                  {
+                      "Titre":  "PowerLAB",
+                      "Image":  "C:\\Users\\nrouzeaud001\\OneDrive - PwC\\Pictures\\Logo\\Clients\\PowerLAB.png",
+                      "Profil":  "Profile 8",
+                      "Url":  "",
+                      "Couleur":  "#5E2D91",
+                      "Order":  2
+                  },
+                  {
+                      "Titre":  "SatPort - AntennaCo",
+                      "Image":  "C:\\Users\\nrouzeaud001\\OneDrive - PwC\\Pictures\\Logo\\Clients\\SatPort.png",
+                      "Profil":  "Profile 13",
+                      "Url":  "",
+                      "Couleur":  "#012456",
+                      "Order":  3
+                  },
+                  {
+                      "Titre":  "CDX NicoAdmin",
+                      "Image":  "C:\\temp\\PS\\Tiles Selector\\App2\\profilA.png",
+                      "Profil":  "Profile 16",
+                      "Url":  "",
+                      "Couleur":  "#2496ED",
+                      "Order":  4
+                  },
+                  {
+                      "Titre":  "Airbus",
+                      "Image":  "C:\\Users\\nrouzeaud001\\OneDrive - PwC\\Pictures\\Logo\\Clients\\AIRBUS_Blue.png",
+                      "Profil":  "Profile 6",
+                      "Url":  "",
+                      "Couleur":  "#0078D4",
+                      "Order":  5
+                  },
+                  {
+                      "Titre":  "Test",
+                      "Image":  "C:\\Users\\nrouzeaud001\\OneDrive - PwC\\Pictures\\Tmp\\the_four_microsoft_power_platforms.jpg",
+                      "Profil":  "Profil 10",
+                      "Url":  "",
+                      "Couleur":  "#FF8000",
+                      "Order":  6
+                  }
+              ]
+}
