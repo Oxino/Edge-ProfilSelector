@@ -1,0 +1,92 @@
+[
+    {
+        "InternalName" : "CNIEL",
+        "Label": "CNIEL",
+        "EdgeProfil": "Profile 4",
+        "BackColor":"SteelBlue",
+        "Url": "https://m365.cloud.microsoft/",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Logo\\Clients\\Cniel.png"
+    },
+    {        
+        "InternalName" : "Airbus",
+        "Label": "Airbus",
+        "EdgeProfil": "Profile 6", 
+        "BackColor":"MediumSeaGreen",
+        "Url": "https://www.example.com/airbus",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\the_four_microsoft_power_platforms.jpg"
+    },{
+        "InternalName" : "SatPort",
+        "Label": "SatPort - AntennaCo",
+        "EdgeProfil": "Profile 13", 
+        "BackColor":"Goldenrod",
+        "Url": "https://admin.cloud.microsoft/",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Logo\\Clients\\SatPort2.png"
+    },{
+        "InternalName" : "PowerLAB",
+        "Label": "PowerLAB",
+        "EdgeProfil": "Profile 8", 
+        "BackColor":"SteelBlue",
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Logo\\Clients\\PowerLAB.png"
+    },
+    {
+        "InternalName" : "autre1",
+        "Label": "Autre - TMP - Alex W",
+        "EdgeProfil": "Profile 7", 
+        "BackColor":"Tomato",    
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Logo\\Clients\\SatPort.png"
+    },
+    {
+        "InternalName" : "autre2",
+        "Label": "Autre",
+        "EdgeProfil": "Profile 11", 
+        "BackColor":"SlateBlue",
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\Microsoft_Power_Platform_logo.svg.png"
+    },
+    {
+        "InternalName" : "ContosoAntennaCo",
+        "Label": "Contoso - AntennaCo",
+        "EdgeProfil": "Profile 12", 
+        "BackColor":"Goldenrod",
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\Microsoft_Power_Platform_logo.svg.png"
+    },
+    {
+        "InternalName" : "CDX",
+        "Label": "CDX",
+        "EdgeProfil": "Profile 16", 
+        "BackColor":"SteelBlue",
+        "Url": "https://m365.cloud.microsoft/",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\MS CDX.png"
+    },{
+        "InternalName" : "HubCollab",
+        "Label": "Hub Collab",
+        "EdgeProfil": "Profile 1", 
+        "BackColor":"SteelBlue",
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\Microsoft_Power_Platform_logo.svg.png"
+    },{
+        "InternalName" : "Nutrission Santé",
+        "Label": "Nutrission Santé",
+        "EdgeProfil": "Profile 14", 
+        "BackColor":"SteelBlue",
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\Microsoft_Power_Platform_logo.svg.png"
+    },{
+        "InternalName" : "PwC",
+        "Label": "PwC",
+        "EdgeProfil": "Default", 
+        "BackColor":"SteelBlue",
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\Microsoft_Power_Platform_logo.svg.png"
+    },{
+        "InternalName" : "Vivescia",
+        "Label": "Vivescia",
+        "EdgeProfil": "Profile 15", 
+        "BackColor":"SteelBlue",
+        "Url": "https://www.example.com/raci",
+        "ImagePath": "C:\\Users\\nrouzeaud001\\Pictures\\Tmp\\Microsoft_Power_Platform_logo.svg.png"
+    }
+]
