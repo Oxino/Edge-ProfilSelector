@@ -1,0 +1,219 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PowerShell Tile Selector"
+        Height="950" Width="900"
+        Background="#0F3460"
+        FocusManager.FocusedElement="{Binding ElementName=SearchBox}">
+    <Window.Effect>
+        <DropShadowEffect Color="#000000" BlurRadius="20" ShadowDepth="3" Opacity="0.3"/>
+    </Window.Effect>
+    
+    <Grid>
+        <!-- Background with gradient and blur effect -->
+        <Grid>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#1A1A2E" Offset="0"/>
+                    <GradientStop Color="#16213E" Offset="0.5"/>
+                    <GradientStop Color="#0F3460" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+        </Grid>
+
+        <!-- Main Content -->
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <DockPanel Grid.Row="0" Margin="0,0,0,24">
+                <StackPanel>
+                    <TextBlock Text="Edge profil selector" FontSize="32" FontWeight="Bold" Foreground="#FFFFFF" Margin="0,0,0,4"/>
+                </StackPanel>
+            </DockPanel>
+
+            <!-- Search Bar - Glass Effect -->
+            <Border Grid.Row="0" Margin="0,50,0,24" Height="56" VerticalAlignment="Top">
+                <Border CornerRadius="20" Padding="0" 
+                        BorderBrush="#FFFFFF" BorderThickness="1" Opacity="0.3">
+                    <Border.Background>
+                        <SolidColorBrush Color="#FFFFFF" Opacity="0.1"/>
+                    </Border.Background>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="SearchBox" Grid.Column="0" Padding="20,16,20,16" VerticalContentAlignment="Center"
+                                 Background="Transparent" Foreground="#FFFFFF"
+                                 BorderThickness="0" FontSize="16" SelectionBrush="#6ABEF5" CaretBrush="#FFFFFF">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Style.Resources>
+                                        <SolidColorBrush x:Key="TextBoxBorder" Color="Transparent"/>
+                                    </Style.Resources>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                        <TextBlock Name="PlaceholderText" Grid.Column="0" Text="Search tiles..." Padding="20,16,20,16" Foreground="#FFFFFF" 
+                                   VerticalAlignment="Center" IsHitTestVisible="False" FontSize="16" Opacity="0.6"/>
+                        <Button Name="ClearButton" Grid.Column="1" Width="40" Height="40" 
+                                Background="Transparent" Foreground="#FFFFFF" FontSize="18" FontWeight="Bold"
+                                BorderThickness="0" Cursor="Hand" Padding="0" 
+                                Visibility="Hidden">X</Button>
+                    </Grid>
+                </Border>
+            </Border>
+
+            <!-- Tile Container -->
+            <ListBox Name="TileList" Grid.Row="1" Background="Transparent" BorderThickness="0"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <!-- Outer Glass Container -->
+                                    <Border Name="TileBorder" CornerRadius="24" 
+                                            Margin="12" Width="180" Height="200" BorderThickness="1"
+                                            BorderBrush="#FFFFFF" Opacity="0.9">
+                                        <Border.Background>
+                                            <SolidColorBrush Color="#FFFFFF" Opacity="0.08"/>
+                                        </Border.Background>
+                                        <Border.RenderTransform>
+                                            <ScaleTransform ScaleX="1" ScaleY="1" CenterX="90" CenterY="100"/>
+                                        </Border.RenderTransform>
+
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="130"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+
+                                            <!-- Image Section (color per tile) -->
+                                            <Border Grid.Row="0" CornerRadius="24,24,0,0" Padding="16">
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                        <GradientStop Color="{Binding Color1}" Offset="0"/>
+                                                        <GradientStop Color="{Binding Color2}" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <Viewbox Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="{Binding Image}" Width="80" Height="80" Opacity="0.95"/>
+                                                </Viewbox>
+                                            </Border>
+
+                                            <!-- Title Section (subtle tint from tile color) -->
+                                            <Border Grid.Row="1" CornerRadius="0,0,24,24" ClipToBounds="True">
+                                                <Border.Background>
+                                                    <SolidColorBrush Color="{Binding Color2}" Opacity="0.12"/>
+                                                </Border.Background>
+                                                <TextBlock Text="{Binding Title}" HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center" FontWeight="SemiBold" 
+                                                           Foreground="#FFFFFF" FontSize="14" TextWrapping="Wrap"
+                                                           Padding="12" TextAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Animations & Triggers -->
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="TileBorder" Property="Opacity" Value="1"/>
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <!-- Scale animation -->
+                                                        <DoubleAnimation Storyboard.TargetName="TileBorder"
+                                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                         To="1.08" Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation Storyboard.TargetName="TileBorder"
+                                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                         To="1.08" Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <!-- Opacity animation for glow effect -->
+                                                        <DoubleAnimation Storyboard.TargetName="TileBorder"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To="1" Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseOut"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="TileBorder"
+                                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                         To="1" Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation Storyboard.TargetName="TileBorder"
+                                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                         To="1" Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                        <DoubleAnimation Storyboard.TargetName="TileBorder"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To="0.9" Duration="0:0:0.3">
+                                                            <DoubleAnimation.EasingFunction>
+                                                                <CubicEase EasingMode="EaseIn"/>
+                                                            </DoubleAnimation.EasingFunction>
+                                                        </DoubleAnimation>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="TileBorder" Property="BorderBrush" Value="#6ABEF5"/>
+                                            <Setter TargetName="TileBorder" Property="BorderThickness" Value="2"/>
+                                            <Setter TargetName="TileBorder" Property="Opacity" Value="1"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+
+                <!-- Scrollbar Style for transparency -->
+                <ListBox.Resources>
+                    <Style TargetType="ScrollBar">
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+
+            <!-- Bottom action bar -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                <TextBlock Text="Ajouter profil" VerticalAlignment="Center" Foreground="#DDE6F6" Margin="0,0,8,0"/>
+                <Button Name="AddTileButton" Width="36" Height="36"
+                        Background="#FFFFFF" Foreground="#0F3460" FontWeight="Bold"
+                        BorderThickness="0" Cursor="Hand">+</Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
